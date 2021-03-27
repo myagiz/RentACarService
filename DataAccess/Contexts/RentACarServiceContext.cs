@@ -17,10 +17,19 @@ namespace DataAccess.Contexts
         {
             modelBuilder.Entity<Car>()
                 .HasKey(x => new { x.CarId });
+
+            modelBuilder.Entity<User>()
+                .HasKey(x => new {x.UserId});
+
+            modelBuilder.Entity<Rental>()
+                .HasKey(x => new {x.RentalId});
         }
 
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Color> Colors { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
     }
 }

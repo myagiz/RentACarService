@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
@@ -9,7 +8,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EfCore
 {
-    public class EfCoreCarDal:EfEntityRepository<Car,RentACarServiceContext>,ICarDal
+    public class EfCoreUserDal:EfEntityRepository<User,RentACarServiceContext>,IUserDal
     {
     }
 }

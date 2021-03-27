@@ -22,6 +22,14 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
+        public TEntity GetById(int id)
+        {
+            using (var context = new TContext())
+            {
+                return context.Set<TEntity>().Find(id);
+            }
+        }
+
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
             using (TContext context = new TContext())

@@ -9,7 +9,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Concrete.EfCore
 {
-    public class EfCoreCarDal:EfEntityRepository<Car,RentACarServiceContext>,ICarDal
+    public class EfCoreRentalDal:EfEntityRepository<Rental,RentACarServiceContext>,IRentalDal
     {
     }
 }
