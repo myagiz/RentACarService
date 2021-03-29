@@ -9,5 +9,7 @@ namespace Entities.Concrete
     {
         public int BrandId { get; set; }
         public string Name { get; set; }
+
+        public List<Car> Cars { get; set; }
     }
 }

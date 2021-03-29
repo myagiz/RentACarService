@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
 namespace Business.Concrete
 {
-    public class UserManager:IUserDal
+    public class UserManager:IUserService
     {
         private IUserDal _userDal;
 
@@ -16,14 +17,9 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-        public List<User> GetAll(Expression<Func<User, bool>> filter = null)
+        public List<User> GetAll()
         {
             return _userDal.GetAll();
-        }
-
-        public User Get(Expression<Func<User, bool>> filter)
-        {
-            throw new NotImplementedException();
         }
 
         public User GetById(int id)
@@ -33,7 +29,7 @@ namespace Business.Concrete
 
         public void Add(User entity)
         {
-           _userDal.Add(entity);
+            _userDal.Add(entity);
         }
 
         public void Update(User entity)

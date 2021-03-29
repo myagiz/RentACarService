@@ -15,14 +15,14 @@ namespace DataAccess.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Car>()
-                .HasKey(x => new { x.CarId });
+            //modelBuilder.Entity<Car>()
+            //    .HasKey(x => new { x.CarId });
 
-            modelBuilder.Entity<User>()
-                .HasKey(x => new {x.UserId});
+            //modelBuilder.Entity<User>()
+            //    .HasKey(x => new {x.UserId});
 
-            modelBuilder.Entity<Rental>()
-                .HasKey(x => new {x.RentalId});
+            //modelBuilder.Entity<Rental>()
+            //    .HasKey(x => new {x.RentalId});
         }
 
         public DbSet<Car> Cars { get; set; }

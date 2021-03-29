@@ -4,14 +4,16 @@ using DataAccess.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(RentACarServiceContext))]
-    partial class RentACarServiceContextModelSnapshot : ModelSnapshot
+    [Migration("20210329113941_UpdateDatabaseV1.1")]
+    partial class UpdateDatabaseV11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,10 +43,10 @@ namespace DataAccess.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BrandId")
+                    b.Property<int?>("BrandId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ColorId")
+                    b.Property<int?>("ColorId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("DailyPrice")
@@ -154,17 +156,17 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("Entities.Concrete.Car", b =>
                 {
-                    b.HasOne("Entities.Concrete.Brand", null)
+                    b.HasOne("Entities.Concrete.Brand", "Brand")
                         .WithMany("Cars")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BrandId");
 
-                    b.HasOne("Entities.Concrete.Color", null)
+                    b.HasOne("Entities.Concrete.Color", "Color")
                         .WithMany("Cars")
-                        .HasForeignKey("ColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ColorId");
+
+                    b.Navigation("Brand");
+
+                    b.Navigation("Color");
                 });
 
             modelBuilder.Entity("Entities.Concrete.Rental", b =>
