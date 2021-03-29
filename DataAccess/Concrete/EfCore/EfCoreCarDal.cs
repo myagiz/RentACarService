@@ -74,5 +74,7 @@ namespace DataAccess.Concrete.EfCore
                return result.SingleOrDefault();
             }
         }
+
+       
     }
 }
