@@ -21,16 +21,7 @@ namespace WebAPI.Controllers
         }
 
 
-
         [HttpGet("GetAll")]
-        public List<Car> GetAll()
-        {
-            var result = _carService.GetAll();
-            return result;
-        }
-
-
-        [HttpGet("GetAllCarDetails")]
         public IActionResult GetCarDetail()
         {
             var result = _carService.GetAllCarDetails();
@@ -39,16 +30,29 @@ namespace WebAPI.Controllers
                 return Ok(result);
             }
 
-            return BadRequest(result);
+            return BadRequest();
         }
 
 
 
-        [HttpGet("GetById")]
-        public ActionResult GetById(int carId)
+        [HttpGet("GetByCarId")]
+        public ActionResult GetByCarId(int id)
         {
-            var result = _carService.GetById(carId);
+            var result = _carService.GetByCarId(id);
             if (result != null)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+
+        [HttpGet("GetByBrandId")]
+        public ActionResult GetByBrandId(int id)
+        {
+            var result = _carService.GetByBrandId(id);
+            if (result!=null)
             {
                 return Ok(result);
             }
@@ -79,6 +83,21 @@ namespace WebAPI.Controllers
             {
                _carService.Update(car);
                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+
+        [HttpDelete("Delete")]
+        public ActionResult Delete(Car car)
+        {
+            try
+            {
+                _carService.Delete(car);
+                return Ok();
             }
             catch
             {
