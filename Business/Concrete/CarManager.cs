@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -42,6 +45,7 @@ namespace Business.Concrete
             return _carDal.GetById(id);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public void Add(Car entity)
         {
            _carDal.Add(entity);

@@ -10,7 +10,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CarValidator()
         {
-            RuleFor(p => p.ModelYear).NotEmpty();
+            RuleFor(p => p.ModelYear).NotEmpty().WithMessage("Model yılı boş bırakılamaz.");
         }
     }
 }
