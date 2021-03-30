@@ -51,6 +51,7 @@ namespace Business.Concrete
            _carDal.Add(entity);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public void Update(Car entity)
         {
             _carDal.Update(entity);

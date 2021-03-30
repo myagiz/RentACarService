@@ -23,6 +23,7 @@ namespace DataAccess.Concrete.EfCore
                              select new CarDetailDto
                              {
                                  CarId = car.CarId,
+                                 CarName = car.CarName,
                                  ModelYear = car.ModelYear,
                                  Description = car.Description,
                                  DailyPrice = car.DailyPrice,
@@ -43,12 +44,12 @@ namespace DataAccess.Concrete.EfCore
                              select new CarDetailDto
                              {
                                  CarId = car.CarId,
+                                 CarName = car.CarName,
                                  ModelYear = car.ModelYear,
                                  Description = car.Description,
                                  DailyPrice = car.DailyPrice,
                                  ColorName = color.Name,
-                                 BrandName = brand.Name,
-                                 Status = !context.Rentals.Any(rental => rental.Car.CarId == carId && rental.ReturnDate == null)
+                                 BrandName = brand.Name
                              };
                 return result.SingleOrDefault();
             }
@@ -68,8 +69,7 @@ namespace DataAccess.Concrete.EfCore
                        Description = car.Description,
                        DailyPrice = car.DailyPrice,
                        ColorName = color.Name,
-                       BrandName = brand.Name,
-                       Status = !context.Rentals.Any(rental => rental.Car.BrandId == brandId && rental.ReturnDate == null)
+                       BrandName = brand.Name
                    };
                return result.SingleOrDefault();
             }

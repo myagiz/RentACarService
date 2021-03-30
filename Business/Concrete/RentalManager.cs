@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 
 namespace Business.Concrete
 {
@@ -21,16 +24,28 @@ namespace Business.Concrete
             return _rentalDal.GetAll();
         }
 
+        public List<RentalDetailDto> GetAllRentalDetails()
+        {
+            return _rentalDal.GetAllRentalDetails();
+        }
+
+        public RentalDetailDto GetByRentalId(int id)
+        {
+            return _rentalDal.GetByRentalId(id);
+        }
+
         public Rental GetById(int id)
         {
            return _rentalDal.GetById(id);
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public void Add(Rental entity)
         {
             _rentalDal.Add(entity);
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public void Update(Rental entity)
         {
            _rentalDal.Update(entity);

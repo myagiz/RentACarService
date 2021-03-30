@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -20,12 +22,13 @@ namespace Business.Concrete
         {
             return _brandDal.GetAll();
         }
-
+        [ValidationAspect(typeof(BrandValidator))]
         public void Add(Brand entity)
         {
             _brandDal.Add(entity);
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public void Update(Brand entity)
         {
             _brandDal.Update(entity);
