@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
@@ -8,6 +9,7 @@ using Core.Utilities.Helpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 
 namespace Business.Concrete
@@ -36,6 +38,32 @@ namespace Business.Concrete
         public List<CarImage> GetAll()
         {
             return _carImageDal.GetAll();
+        }
+
+        public List<CarImageDetail> GetByCarId(int id)
+        {
+            return _carImageDal.GetByCarId(id);
+        }
+
+        public CarImage Get(int id)
+        {
+           return _carImageDal.Get(x=>x.CarId==id);
+        }
+
+
+        private IResult CarImageDelete(CarImage carImage)
+        {
+            try
+            {
+                File.Delete(carImage.ImagePath);
+            }
+            catch (Exception exception)
+            {
+
+                return new ErrorResult(exception.Message);
+            }
+
+            return new SuccessResult();
         }
 
         public IResult Add(CarImage entity, IFormFile file, int id)

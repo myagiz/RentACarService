@@ -23,6 +23,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CustomerManager>().As<ICustomerService>();
             builder.RegisterType<RentalManager>().As<IRentalService>();
             builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<CarImageManager>().As<ICarImageService>();
 
             // DAL
             builder.RegisterType<EfCoreBrandDal>().As<IBrandDal>().SingleInstance();
@@ -31,7 +32,10 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCoreCustomerDal>().As<ICustomerDal>();
             builder.RegisterType<EfCoreRentalDal>().As<IRentalDal>();
             builder.RegisterType<EfCoreUserDal>().As<IUserDal>();
+            builder.RegisterType<EfCoreImageDal>().As<ICarImageDal>();
 
+
+            //ValidationAOP
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
