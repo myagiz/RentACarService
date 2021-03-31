@@ -12,5 +12,6 @@ namespace DataAccess.Abstract
     {
         List<RentalDetailDto> GetAllRentalDetails(Expression<Func<Rental, bool>> filter = null);
         RentalDetailDto GetByRentalId(int rentalId);
+        RentalDetailDto GetByCustomerId(int customerId);
     }
 }

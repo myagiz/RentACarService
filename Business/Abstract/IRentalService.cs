@@ -11,6 +11,7 @@ namespace Business.Abstract
         List<Rental> GetAll();
         List<RentalDetailDto> GetAllRentalDetails();
         RentalDetailDto GetByRentalId(int id);
+        RentalDetailDto GetByCustomerId(int id);
         Rental GetById(int id);
         void Add(Rental entity);
         void Update(Rental entity);

@@ -34,6 +34,11 @@ namespace Business.Concrete
             return _rentalDal.GetByRentalId(id);
         }
 
+        public RentalDetailDto GetByCustomerId(int id)
+        {
+            return _rentalDal.GetByCustomerId(id);
+        }
+
         public Rental GetById(int id)
         {
            return _rentalDal.GetById(id);

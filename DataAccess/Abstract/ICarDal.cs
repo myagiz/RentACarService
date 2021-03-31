@@ -8,10 +8,11 @@ using Entities.DTOs;
 
 namespace DataAccess.Abstract
 {
-    public interface ICarDal:IEntityRepository<Car>
+    public interface ICarDal : IEntityRepository<Car>
     {
         List<CarDetailDto> GetAllCarDetails(Expression<Func<Car, bool>> filter = null);
         CarDetailDto GetByCarId(int carId);
-        CarDetailDto GetByBrandId(int brandId);
+        List<CarDetailDto> GetByBrandId(int brandId);
+        List<CarDetailDto> GetByColorId(int colorId);
     }
 }

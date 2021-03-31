@@ -11,19 +11,22 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : ControllerBase
+    public class ColorsController : ControllerBase
     {
-        private IRentalService _rentalService;
+        private IColorService _colorService;
+        private ICarService _carService;
 
-        public RentalsController(IRentalService rentalService)
+        public ColorsController(IColorService colorService, ICarService carService)
         {
-            _rentalService = rentalService;
+            _colorService = colorService;
+            _carService = carService;
         }
+
 
         [HttpGet("GetAll")]
         public ActionResult GetAll()
         {
-            var result = _rentalService.GetAllRentalDetails();
+            var result = _colorService.GetAll();
             if (result!=null)
             {
                 return Ok(result);
@@ -33,23 +36,10 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpGet("GetByRentalId")]
-        public ActionResult GetByRentalId(int id)
+        [HttpGet("GetCarsByColorId")]
+        public ActionResult GetCarsByColorId(int id)
         {
-            var result = _rentalService.GetByRentalId(id);
-            if (result!=null)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
-        }
-
-
-        [HttpGet("GetByCustomerId")]
-        public ActionResult GetByCustomerId(int id)
-        {
-            var result = _rentalService.GetByCustomerId(id);
+            var result = _carService.GetByColorId(id);
             if (result!=null)
             {
                 return Ok(result);
@@ -60,14 +50,14 @@ namespace WebAPI.Controllers
 
 
         [HttpPost("Add")]
-        public ActionResult Add(Rental rental)
+        public ActionResult Add(Color color)
         {
             try
             {
-                _rentalService.Add(rental);
+                _colorService.Add(color);
                 return Ok();
             }
-            catch
+            catch 
             {
                 return BadRequest();
             }
@@ -75,11 +65,11 @@ namespace WebAPI.Controllers
 
 
         [HttpPut("Update")]
-        public ActionResult Update(Rental rental)
+        public ActionResult Update(Color color)
         {
             try
             {
-                _rentalService.Update(rental);
+                _colorService.Update(color);
                 return Ok();
             }
             catch
@@ -90,11 +80,11 @@ namespace WebAPI.Controllers
 
 
         [HttpDelete("Delete")]
-        public ActionResult Delete(Rental rental)
+        public ActionResult Delete(Color color)
         {
             try
             {
-                _rentalService.Delete(rental);
+                _colorService.Delete(color);
                 return Ok();
             }
             catch
@@ -102,8 +92,5 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
         }
-
-
-
     }
 }

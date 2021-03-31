@@ -11,19 +11,22 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RentalsController : ControllerBase
+    public class BrandsController : ControllerBase
     {
-        private IRentalService _rentalService;
+        private IBrandService _brandService;
+        private ICarService _carService;
 
-        public RentalsController(IRentalService rentalService)
+        public BrandsController(IBrandService brandService, ICarService carService)
         {
-            _rentalService = rentalService;
+            _brandService = brandService;
+            _carService = carService;
         }
+
 
         [HttpGet("GetAll")]
         public ActionResult GetAll()
         {
-            var result = _rentalService.GetAllRentalDetails();
+            var result = _brandService.GetAll();
             if (result!=null)
             {
                 return Ok(result);
@@ -33,38 +36,24 @@ namespace WebAPI.Controllers
         }
 
 
-        [HttpGet("GetByRentalId")]
-        public ActionResult GetByRentalId(int id)
+        [HttpGet("GetCarsByBrandId")]
+        public ActionResult GetCarsByBrandId(int id)
         {
-            var result = _rentalService.GetByRentalId(id);
+            var result = _carService.GetByBrandId(id);
             if (result!=null)
             {
                 return Ok(result);
             }
-
-            return BadRequest();
-        }
-
-
-        [HttpGet("GetByCustomerId")]
-        public ActionResult GetByCustomerId(int id)
-        {
-            var result = _rentalService.GetByCustomerId(id);
-            if (result!=null)
-            {
-                return Ok(result);
-            }
-
             return BadRequest();
         }
 
 
         [HttpPost("Add")]
-        public ActionResult Add(Rental rental)
+        public ActionResult Add(Brand brand)
         {
             try
             {
-                _rentalService.Add(rental);
+                _brandService.Add(brand);
                 return Ok();
             }
             catch
@@ -75,11 +64,11 @@ namespace WebAPI.Controllers
 
 
         [HttpPut("Update")]
-        public ActionResult Update(Rental rental)
+        public ActionResult Update(Brand brand)
         {
             try
             {
-                _rentalService.Update(rental);
+                _brandService.Update(brand);
                 return Ok();
             }
             catch
@@ -90,11 +79,11 @@ namespace WebAPI.Controllers
 
 
         [HttpDelete("Delete")]
-        public ActionResult Delete(Rental rental)
+        public ActionResult Delete(Brand brand)
         {
             try
             {
-                _rentalService.Delete(rental);
+                _brandService.Delete(brand);
                 return Ok();
             }
             catch
@@ -102,8 +91,5 @@ namespace WebAPI.Controllers
                 return BadRequest();
             }
         }
-
-
-
     }
 }

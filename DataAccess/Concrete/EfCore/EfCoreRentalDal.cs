@@ -50,5 +50,24 @@ namespace DataAccess.Concrete.EfCore
                 return result.SingleOrDefault();
             }
         }
+
+        public RentalDetailDto GetByCustomerId(int customerId)
+        {
+            using (var context=new RentACarServiceContext())
+            {
+                var result=from rental in context.Rentals.Where(x=>x.CustomerId==customerId)
+                    join car in context.Cars on rental.CarId equals car.CarId
+                    join customer in context.Customers on rental.CustomerId equals customer.CustomerId
+                    select new RentalDetailDto
+                    {
+                        RentalId = rental.RentalId,
+                        RentDate = rental.RentDate,
+                        ReturnDate = rental.ReturnDate,
+                        CustomerName = customer.CompanyName,
+                        CarName = car.CarName,
+                    };
+                return result.SingleOrDefault();
+            }
+        }
     }
 }
