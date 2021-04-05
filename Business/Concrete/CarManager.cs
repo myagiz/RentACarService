@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -20,52 +22,55 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ProductsListed);
         }
 
-        public List<CarDetailDto> GetAllCarDetails()
+        public IDataResult<List<CarDetailDto>> GetAllCarDetails()
         {
-            return _carDal.GetAllCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetAllCarDetails(), Messages.ProductsListed);
         }
 
-        public CarDetailDto GetByCarId(int id)
+        public IDataResult<CarDetailDto> GetByCarId(int id)
         {
-            return _carDal.GetByCarId(id);
+            return new SuccessDataResult<CarDetailDto>(_carDal.GetByCarId(id),Messages.succeed);
         }
 
-        public List<CarDetailDto> GetByBrandId(int id)
+        public IDataResult<List<CarDetailDto>> GetByBrandId(int id)
         {
-            return _carDal.GetByBrandId(id);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetByBrandId(id),Messages.succeed);
         }
 
-        public List<CarDetailDto> GetByColorId(int id)
+        public IDataResult<List<CarDetailDto>> GetByColorId(int id)
         {
-           return _carDal.GetByColorId(id);
+           return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetByColorId(id),Messages.succeed);
         }
 
 
-        public Car GetById(int id)
+        public IDataResult<Car> GetById(int id)
         {
-            return _carDal.GetById(id);
+            return new SuccessDataResult<Car>(_carDal.GetById(id),Messages.succeed);
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        public void Add(Car entity)
+        public IResult Add(Car entity)
         {
            _carDal.Add(entity);
+           return new SuccessResult(Messages.ProductAdded);
         }
 
         [ValidationAspect(typeof(CarValidator))]
-        public void Update(Car entity)
+        public IResult Update(Car entity)
         {
             _carDal.Update(entity);
+            return new SuccessResult(Messages.updated);
         }
 
-        public void Delete(Car entity)
+        public IResult Delete(Car entity)
         {
            _carDal.Delete(entity);
+           return new SuccessResult();
         }
     }
 }

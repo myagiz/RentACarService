@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -19,46 +21,53 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
-        public List<Rental> GetAll()
+        public IDataResult<List<Rental>> GetAll()
         {
-            return _rentalDal.GetAll();
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(),Messages.listed);
         }
 
-        public List<RentalDetailDto> GetAllRentalDetails()
+        public IDataResult<List<RentalDetailDto>> GetAllRentalDetails()
         {
-            return _rentalDal.GetAllRentalDetails();
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetAllRentalDetails(),Messages.listed);
         }
 
-        public RentalDetailDto GetByRentalId(int id)
+        public IDataResult<RentalDetailDto> GetByRentalId(int id)
         {
-            return _rentalDal.GetByRentalId(id);
+            return new SuccessDataResult<RentalDetailDto>(_rentalDal.GetByRentalId(id),Messages.succeed);
         }
 
-        public RentalDetailDto GetByCustomerId(int id)
+        public IDataResult<RentalDetailDto> GetByCustomerId(int id)
         {
-            return _rentalDal.GetByCustomerId(id);
+            return new SuccessDataResult<RentalDetailDto>(_rentalDal.GetByCustomerId(id),Messages.succeed);
         }
 
-        public Rental GetById(int id)
+        public IDataResult<Rental> GetById(int id)
         {
-           return _rentalDal.GetById(id);
+           return new SuccessDataResult<Rental>(_rentalDal.GetById(id),Messages.succeed);
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public void Add(Rental entity)
+        public IResult Add(Rental entity)
         {
             _rentalDal.Add(entity);
+            return new SuccessResult(Messages.added);
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        public void Update(Rental entity)
+        public IResult Update(Rental entity)
         {
            _rentalDal.Update(entity);
+           return new SuccessResult(Messages.updated);
         }
 
-        public void Delete(Rental entity)
+        public IResult Delete(Rental entity)
         {
-            _rentalDal.Delete(entity);
+            if (entity!=null)
+            {
+                _rentalDal.Delete(entity);
+                return new SuccessResult(Messages.deleted);
+            }
+            return new ErrorResult("No delete rental.");
         }
     }
 }

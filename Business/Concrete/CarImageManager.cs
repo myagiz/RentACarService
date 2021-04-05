@@ -47,7 +47,7 @@ namespace Business.Concrete
 
         public CarImage Get(int id)
         {
-           return _carImageDal.Get(x=>x.CarId==id);
+            return _carImageDal.Get(x=>x.CarImageId==id);
         }
 
 
